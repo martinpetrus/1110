@@ -7,6 +7,7 @@ public class JInputPoller {
 
     private final RingBuffer<Event> ringBuffer;
     private final Controller[] controllers;
+    private boolean shutdown;
 
     public JInputPoller(RingBuffer<Event> ringBuffer, Controller[] controllers) {
         this.ringBuffer = ringBuffer;
@@ -15,10 +16,12 @@ public class JInputPoller {
 
     public void poll() {
         net.java.games.input.Event jInputEvent = new net.java.games.input.Event();
-        for (Controller controller : controllers) {
-            controller.poll();
-            while(controller.getEventQueue().getNextEvent(jInputEvent)) {
-                publishEvent(controller, jInputEvent);
+        while (!shutdown) {
+            for (Controller controller : controllers) {
+                controller.poll();
+                while (controller.getEventQueue().getNextEvent(jInputEvent)) {
+                    publishEvent(controller, jInputEvent);
+                }
             }
         }
     }
@@ -33,4 +36,7 @@ public class JInputPoller {
         }
     }
 
+    public void shutdown() {
+        shutdown = true;
+    }
 }
