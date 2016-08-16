@@ -7,18 +7,18 @@ import javax.sound.midi.MidiDevice;
  */
 public class MidiEvent {
     MidiDevice midiDevice;
-    javax.sound.midi.MidiEvent event;
+    javax.sound.midi.MidiMessage event;
 
     public MidiDevice getDevice() {
         return midiDevice;
     }
 
-    public javax.sound.midi.MidiEvent getEvent() {
+    public javax.sound.midi.MidiMessage getMessage() {
         return event;
     }
 
-    public void update(MidiEvent event) {
-        midiDevice = event.getDevice();
-        this.event = event.getEvent();
+    public void update(MidiDevice midiDevice, javax.sound.midi.MidiMessage event) {
+        this.midiDevice = midiDevice;
+        this.event = event;
     }
 }
