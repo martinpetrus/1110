@@ -1,25 +1,23 @@
 package zone.iioi.core;
 
-import net.java.games.input.Controller;
+import net.java.games.input.*;
+import net.java.games.input.Event;
 
 public class JInputEvent {
 
     Controller controller;
-    Event event;
+    net.java.games.input.Event event;
 
     public Controller getController() {
         return controller;
     }
 
-    public void setController(Controller controller) {
-        this.controller = controller;
-    }
-
-    public Event getEvent() {
+    public net.java.games.input.Event getEvent() {
         return event;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void update(Controller controller, Event event) {
+        this.controller = controller;
+        this.event.set(event);
     }
 }
