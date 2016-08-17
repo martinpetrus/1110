@@ -2,21 +2,26 @@ package zone.iioi.core;
 
 import com.lmax.disruptor.RingBuffer;
 
-import javax.sound.midi.*;
+import javax.sound.midi.MidiMessage;
+import javax.sound.midi.Receiver;
+import javax.sound.midi.Transmitter;
 
 public class MidiInListener implements Receiver {
     private final RingBuffer<Event> ringBuffer;
-    private final MidiDevice midiIn;
+    private final Transmitter midiIn;
 
-    public MidiInListener(RingBuffer<Event> ringBuffer, MidiDevice midiIn) throws Exception {
+    private MidiInListener(RingBuffer<Event> ringBuffer, Transmitter midiIn) {
         this.ringBuffer = ringBuffer;
         this.midiIn = midiIn;
-        this.midiIn.getTransmitter().setReceiver(this);
+    }
+
+    public static void register(RingBuffer<Event> ringBuffer, Transmitter midiIn) {
+        midiIn.setReceiver(new MidiInListener(ringBuffer, midiIn));
     }
 
     @Override
     public void send(MidiMessage message, long timeStamp) {
-
+        publishEvent(message);
     }
 
     private void publishEvent(MidiMessage message) {
@@ -31,7 +36,7 @@ public class MidiInListener implements Receiver {
 
     @Override
     public void close() {
-
+        midiIn.close();
     }
 
 }

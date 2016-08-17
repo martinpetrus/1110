@@ -3,6 +3,8 @@ package zone.iioi.core;
 import net.java.games.input.Controller;
 
 import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiMessage;
+import javax.sound.midi.Transmitter;
 
 public class Event {
 
@@ -22,7 +24,7 @@ public class Event {
         jInputEvent.update(controller, event);
     }
 
-    public void update(MidiDevice midiDevice, javax.sound.midi.MidiMessage event) {
+    public void update(Transmitter midiDevice, MidiMessage event) {
         type = EventType.MIDI;
         midiEvent.update(midiDevice, event);
     }
