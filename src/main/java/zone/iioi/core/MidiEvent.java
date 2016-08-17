@@ -1,23 +1,25 @@
 package zone.iioi.core;
 
-import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiMessage;
+import javax.sound.midi.Transmitter;
 
 /**
  *  @author petrmar
  */
 public class MidiEvent {
-    MidiDevice midiDevice;
-    javax.sound.midi.MidiMessage event;
 
-    public MidiDevice getDevice() {
+    private Transmitter midiDevice;
+    private MidiMessage event;
+
+    public Transmitter getDevice() {
         return midiDevice;
     }
 
-    public javax.sound.midi.MidiMessage getMessage() {
+    public MidiMessage getMessage() {
         return event;
     }
 
-    public void update(MidiDevice midiDevice, javax.sound.midi.MidiMessage event) {
+    public void update(Transmitter midiDevice, MidiMessage event) {
         this.midiDevice = midiDevice;
         this.event = event;
     }

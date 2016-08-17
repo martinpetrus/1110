@@ -5,14 +5,14 @@ import net.java.games.input.Event;
 
 public class JInputEvent {
 
-    Controller controller;
-    net.java.games.input.Event event;
+    private Controller controller;
+    private Event event;
 
     public Controller getController() {
         return controller;
     }
 
-    public net.java.games.input.Event getEvent() {
+    public Event getEvent() {
         return event;
     }
 

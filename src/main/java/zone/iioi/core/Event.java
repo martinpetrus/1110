@@ -5,6 +5,7 @@ import net.java.games.input.Controller;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Transmitter;
+import java.util.Set;
 
 public class Event {
 
@@ -14,17 +15,22 @@ public class Event {
     private JInputEvent jInputEvent;
     private MidiEvent midiEvent;
 
+    private Set<Action> triggeredActions;
+
     public void update(InternalTask task) {
+        triggeredActions.clear();
         type = EventType.INTERNAL;
         internalTask = task;
     }
 
     public void update(Controller controller, net.java.games.input.Event event) {
+        triggeredActions.clear();
         type = EventType.JINPUT;
         jInputEvent.update(controller, event);
     }
 
     public void update(Transmitter midiDevice, MidiMessage event) {
+        triggeredActions.clear();
         type = EventType.MIDI;
         midiEvent.update(midiDevice, event);
     }
@@ -37,7 +43,7 @@ public class Event {
         return internalTask;
     }
 
-    public JInputEvent getjInputEvent() {
+    public JInputEvent getJInputEvent() {
         return jInputEvent;
     }
 
